@@ -11,7 +11,7 @@ class Application:
             self.wd = webdriver.Chrome()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
-        #self.wd.implicitly_wait(2)
+        self.wd.implicitly_wait(2)
         self.session = SessionHelper(self)
         self.wd.maximize_window()
         self.baseUrl = baseUrl
