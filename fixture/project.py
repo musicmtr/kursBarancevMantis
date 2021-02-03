@@ -47,9 +47,8 @@ class ProjectHelper:
             wd = self.app.wd
             self.open_manage_project()
             self.project_cache = []
-            table = wd.find_elements_by_tag_name("table")[2]
-            table_id = table.find_elements_by_tag_name("tbody")
-            rows = table_id.find_elements_by_tag_name("tr")
+            table = wd.find_element_by_xpath("//table[3]/tbody")
+            rows = table.find_elements_by_tag_name("tr")
             for row in rows[2:]:
                 cells = row.find_elements_by_tag_name("td")
                 name_project = cells[0].text
