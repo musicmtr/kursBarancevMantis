@@ -1,6 +1,7 @@
 import time
 from selenium.webdriver.support.select import Select
 from model.project import Project
+import re
 
 class ProjectHelper:
 
@@ -46,19 +47,20 @@ class ProjectHelper:
         if self.project_cache is None:
             wd = self.app.wd
             self.open_manage_project()
-            self.project_cache = []
+            project_cache = []
             table = wd.find_element_by_xpath("//table[3]/tbody")
             rows = table.find_elements_by_tag_name("tr")
             for row in rows[2:]:
                 cells = row.find_elements_by_tag_name("td")
+                #id = re.search('(?<=<a href=")[^"]+',cells[0]).group(0)
                 name_project = cells[0].text
                 status = cells[1].text
                 view_status = cells[3].text
                 description = cells[4].text
-                self.project_cache.append(Project(name_project=name_project, status=status,
+                project_cache.append(Project(name_project=name_project, status=status,
                                                   view_status=view_status, description=description))
-        return list(self.project_cache)
-        self.project_cache = None
+        return list(project_cache)
+        #project_cache = None
 
     def del_project(self):
         wd = self.app.wd
