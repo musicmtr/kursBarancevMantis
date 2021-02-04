@@ -29,7 +29,7 @@ def app(request, config):
     global target
     browser = request.config.getoption("--browser")
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, baseUrl=config['web']['baseUrl'])
+        fixture = Application(browser=browser, config=config)
     return fixture
 
 
