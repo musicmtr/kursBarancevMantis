@@ -26,7 +26,7 @@ def config(request):
 @pytest.fixture
 def app(request, config):
     global fixture
-    global target
+    #global target
     browser = request.config.getoption("--browser")
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, config=config)
@@ -40,6 +40,7 @@ def configure_server(request):
         restore_server_configuration(config['ftp']['host'], config['ftp']['username'], config['ftp']['password'])
     request.addfinalizer(fin)
 
+
 def install_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
         if remote.path.isfile("config_inc.php.bak"):
@@ -48,12 +49,14 @@ def install_server_configuration(host, username, password):
             remote.rename("config_inc.php", "config_inc.php.bak")
         remote.upload(os.path.join(os.path.dirname(__file__), "resources/config_inc.php"), "config_inc.php")
 
+
 def restore_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
         if remote.path.isfile("config_inc.php.bak"):
             if remote.path.isfile("config_inc.php"):
                 remote.remove("config_inc.php")
             remote.rename("config_inc.php.bak", "config_inc.php")
+
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
@@ -62,7 +65,6 @@ def stop(request):
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
-
 
 
 def pytest_addoption(parser):
