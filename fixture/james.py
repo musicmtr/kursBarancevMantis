@@ -1,5 +1,6 @@
 from telnetlib import Telnet
 
+
 class JamesHelper:
 
     def __init__(self, app):
@@ -29,7 +30,7 @@ class JamesHelper:
             self.telnet.read_until(text.encode('ascii'), 5)
 
         def write(self, text):
-            self.write(text.encode('ascii'))
+            self.telnet.write(text.encode('ascii'))
 
         def is_users_registred(self, username):
             self.write("verify %s\n" % username)
