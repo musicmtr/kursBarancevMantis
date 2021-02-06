@@ -18,8 +18,7 @@ class Project:
         return (self.name_project is None or other.name_project is None or self.name_project == other.name_project) and self.status == other.status and self.view_status == other.view_status and self.description == other.description
 
     def id_or_max(self):
-        if self.name_project:
-            return str(self.name_project)
+        if self.id:
+            return int(self.id)
         else:
             return maxsize
-

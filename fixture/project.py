@@ -52,12 +52,13 @@ class ProjectHelper:
             rows = table.find_elements_by_tag_name("tr")
             for row in rows[2:]:
                 cells = row.find_elements_by_tag_name("td")
-                #id = re.search('(?<=<a href=")[^"]+',cells[0]).group(0)
+                href = str(cells[0].find_element_by_tag_name("a").get_attribute('href'))
+                id = self.get_id_in_link(href)
                 name_project = cells[0].text
                 status = cells[1].text
                 view_status = cells[3].text
                 description = cells[4].text
-                project_cache.append(Project(name_project=name_project, status=status,
+                project_cache.append(Project(id = id, name_project=name_project, status=status,
                                                   view_status=view_status, description=description))
         return list(project_cache)
         #project_cache = None
@@ -70,10 +71,9 @@ class ProjectHelper:
         wd.find_element_by_css_selector("input[value='Delete Project']").click()
 
 
-
-
-
-
-
-
+    def get_id_in_link(self, link):
+    # x = re.search("^=:(.*)", txt).group(0)
+        keyword = '='
+        before_keyword, keyword, after_keyword = link.partition(keyword)
+        return after_keyword
 
