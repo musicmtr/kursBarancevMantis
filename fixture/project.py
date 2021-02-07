@@ -28,6 +28,10 @@ class ProjectHelper:
         Select(wd.find_element_by_name("view_state")).select_by_visible_text(project.view_status)
         self.change_field_value(field_name='description', text=project.description)
 
+    def fill_name_project(self, project):
+        wd = self.app.wd
+        self.change_field_value(field_name='name', text=project.name_project)
+
 
     def change_field_value(self, text, field_name):
         wd = self.app.wd
@@ -58,8 +62,7 @@ class ProjectHelper:
                 status = cells[1].text
                 view_status = cells[3].text
                 description = cells[4].text
-                project_cache.append(Project(id = id, name_project=name_project, status=status,
-                                                  view_status=view_status, description=description))
+                project_cache.append(Project(id = id, name_project=name_project))
         return list(project_cache)
         #project_cache = None
 

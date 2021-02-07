@@ -22,3 +22,9 @@ class Project:
             return int(self.id)
         else:
             return maxsize
+
+    def name_or_max(self):
+        if self.name_project:
+            return int(self.name_project)
+        else:
+            return maxsize
