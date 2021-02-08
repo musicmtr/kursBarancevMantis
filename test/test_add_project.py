@@ -3,9 +3,9 @@ import uuid
 
 
 def test_add_project(app):
-    username = "administrator"
-    password = "root"
-    app.session.login(username, password)
+    username = app.config['webadmin']['username']
+    password = app.config['webadmin']['password']
+    #app.session.login(username, password)
     assert app.session.is_logged_in_as(username)
     old_project = app.soap.get_project_list(username, password)
     app.project.open_create_new_project()

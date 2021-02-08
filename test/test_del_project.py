@@ -3,10 +3,8 @@ import uuid
 
 
 def test_del_project(app):
-    username = "administrator"
-    password = "root"
-    app.session.login(username, password)
-    assert app.session.is_logged_in_as(username)
+    username = app.config['webadmin']['username']
+    password = app.config['webadmin']['password']
     app.project.open_manage_project()
     if len(app.project.get_project_list()) == 0:
         app.project.open_create_new_project()
